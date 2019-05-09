@@ -5,6 +5,7 @@ build-lists: true
 [.background-color: #60B5CC]
 [.header: #FFFFFF, text-scale(1.7), alignment(left)]
 [.footer-style: #FFFFFF, text-scale(1.5)]
+[.footer: @arkh4m . jsday]
 
 ![right 40%](images/elm-logo.png)
 
@@ -43,7 +44,7 @@ build-lists: true
 
 ---
 
-# ENHANCE!
+# __ENHANCE__
 
 ![inline](images/sleep-of-reason-enhanced.jpg)
 
@@ -61,7 +62,7 @@ build-lists: true
 
 ---
 
-# 💥 BAM 💥
+# 💥 __BAM__ 💥
 
 ---
 
@@ -77,7 +78,7 @@ build-lists: true
 
 ---
 
-# Refactoring shouldn't change the behaviour of our code
+# Refactoring shouldn't change<br>the behaviour of our code
 
 ---
 
@@ -89,6 +90,10 @@ build-lists: true
 
 ---
 
+![inline](images/refactoring.png)
+
+---
+
 # Who has test suites? 🤚
 
 ---
@@ -97,7 +102,19 @@ build-lists: true
 
 ---
 
-# Who trusts their test suites to catch all regressions after a refactor that touches 20 files? 🤚
+# How long does it take to run your test suite? 1-10 mins 🤚
+
+---
+
+# How long does it take to run your test suite? 10-20 mins 🤚
+
+---
+
+# How long does it take to run your test suite? 20+ mins 🤚
+
+---
+
+# Who trusts their test suites to catch<br>all regressions after a refactor<br>that touches 20 files? 🤚
 
 ---
 
@@ -113,17 +130,17 @@ build-lists: true
 
 ---
 
-# We always talk about<br>Impostor Syndrome
+# We always talk about<br>__Impostor Syndrome__
 
 ---
 
-[.footer: Rest In Peace Joe 1950-2019]
+[.footer: Rest In Peace, Joe. 1950-2019]
 
 ![inline](images/joe.png)
 
 ---
 
-# Why do we always blame ourselves?
+# Why do we always<br>blame ourselves?
 
 ^ Could it be that the tools we are using are not good enough?
 
@@ -133,6 +150,16 @@ build-lists: true
 
 ---
 
+
+# [Speed Without Wizardry](http://fitzgeraldnick.com/2018/02/26/speed-without-wizardry.html)
+
+---
+
+# Safety Without Wizardy
+
+---
+
+
 # What if there was a solution? 💡
 
 ---
@@ -141,7 +168,7 @@ build-lists: true
 
 ---
 
-# What is it
+# What is Elm
 
 - A __strongly typed__ functional programming language
 - Designed to build frontend webapps
@@ -156,11 +183,11 @@ build-lists: true
 
 ---
 
-# DEMO TIME!
+# __DEMO TIME__
 
 ---
 
-# Function Signatures
+# Function Signatures ✍️
 
 ```elm
 add : Int -> Int -> Int
@@ -172,16 +199,19 @@ add x y = x + y
 # Currying 🍛
 
 ```elm
+add : Int -> Int -> Int
+add x y = x + y
+
 add1 : Int -> Int
 add1 = add 1
 
-add1to4 : Int
-add1to4 = add1 4 -- 5
+result : Int
+result = add1 4 -- 5
 ```
 
 ---
 
-# Actually in Elm a function can <br> only take a **single** argument.
+# Actually in Elm a function can <br> only take a __single__ argument
 
 ---
 
@@ -191,12 +221,16 @@ add1to4 = add1 4 -- 5
 
 # Function Signatures, Pt II
 
+
+[.code-highlight: 1-2]
+[.code-highlight: 1-5]
+
 ```elm
 add : Int -> (Int -> Int)
 add x y = x + y
 
 add1 : Int -> Int
-add1 x = x + 1
+add1 = add 1 -- this is now waiting for a y
 ```
 
 ---
@@ -212,31 +246,16 @@ array.map(x => x * 2); // [2, 8, 18, 32]
 
 # Function Signatures, Pt III
 
-```elm
-array = [1, 4, 9, 16]
-List.map (\x -> x * 2) array -- [2, 8, 18, 32]
-```
 
----
-
-# Function Signatures, Pt III
+[.code-highlight: 1-2]
+[.code-highlight: 1-4]
+[.code-highlight: 1-8]
 
 ```elm
 array = [1, 4, 9, 16]
 List.map (\x -> x * 2) array -- [2, 8, 18, 32]
 
--- map : (a -> b) -> List a -> List b
-```
-
----
-
-# Function Signatures, Pt III
-
-```elm
-array = [1, 4, 9, 16]
-List.map (\x -> x * 2) array -- [2, 8, 18, 32]
-
--- map : (a -> b) -> List a -> List b
+-- List.map : (a -> b) -> List a -> List b
 
 doubleEverything: List Int -> List Int
 doubleEverything list =
@@ -245,55 +264,23 @@ doubleEverything list =
 
 ---
 
-# Function Signatures, Pt III
-
-```elm
-array = [1, 4, 9, 16]
-List.map (\x -> x * 2) array -- [2, 8, 18, 32]
-
--- map : (a -> b) -> List a -> List b
-
-doubleEverything: List Int -> List Int
-doubleEverything =
-    List.map (\x -> x * 2)
-```
-
----
-
 # Function Signatures, Pt IV
 
-```elm
--- map : (a -> b) -> List a -> List b
-
-specializedMap : (Int -> String) -> List Int -> List String
-specializedMap fun list = List.map fun list
-```
-
----
-
-# Function Signatures, Pt IV
+[.code-highlight: 1-4]
+[.code-highlight: 1-7]
+[.code-highlight: 1-10]
 
 ```elm
--- map : (a -> b) -> List a -> List b
+-- List.map : (a -> b) -> List a -> List b
 
 specializedMap : (Int -> String) -> List Int -> List String
 specializedMap fun list = List.map fun list
 
 specializedMap (\x -> String.fromInt x) [1, 2, 3]
 // ["1","2","3"]
-```
-
----
-
-# Function Signatures, Pt IV
-
-```elm
--- map : (a -> b) -> List a -> List b
-
-specializedMap : (Int -> String) -> List Int -> List String
-specializedMap fun list = List.map fun list
 
 specializedMap (\x -> x * 2) [1, 2, 3]
+// ???
 ```
 
 ---
@@ -324,8 +311,191 @@ Hint: Want to convert an Int into a String? Use the String.fromInt function!
 
 ---
 
-# DEMO TIME!
-## [Mondrian](https://ellie-app.com/5scKgds7bxFa1)
+# But.. what about arguments<br>that can be `null`?
+
+![](images/kip.jpg)
+
+---
+
+# Well..
+
+---
+
+![inline](images/yoda.jpg)
+
+---
+
+# Let's say we want to grab<br>the first element of a list
+
+---
+
+```elm
+List.head : List a -> Maybe a
+```
+
+---
+
+```
+> List.head []
+Nothing
+
+> List.head [1, 2, 3]
+Just 1
+```
+
+---
+
+```elm
+type Maybe a
+    = Just a
+    | Nothing
+```
+
+---
+
+# How do we use it?
+
+---
+
+[.code-highlight: 1]
+[.code-highlight: 1-2]
+[.code-highlight: 1-3]
+[.code-highlight: 1-6]
+[.code-highlight: 1-8]
+
+```elm
+headToString : List Int -> String
+headToString list =
+    case List.head list of 
+        Just value ->
+            String.fromInt value
+
+        Nothing ->
+            "List was empty, I'm sorry"
+```
+
+---
+
+```js
+array[0].toString()
+```
+
+---
+
+![inline](images/sleep-of-reason-undefined.jpg)
+
+---
+
+# So instead of `null` we have `Maybes`
+
+---
+
+> δῶς μοι πᾶ στῶ καὶ<br>τὰν γᾶν κινάσω
+
+---
+
+> δῶς μοι πᾶ στῶ καὶ<br>τὰν γᾶν κινάσω
+-- On the Equilibrium of Planes
+
+---
+
+> δῶς μοι πᾶ στῶ καὶ<br>τὰν γᾶν κινάσω
+-- Archimedes, On the Equilibrium of Planes
+
+---
+
+![](images/archimedes.jpg)
+
+> Give me a place to stand on, and I will move the earth
+-- Archimedes, _On the Equilibrium of Planes_
+
+---
+
+![](images/archimedes.jpg)
+
+> Give me types to write with, and I will refactor with confidence
+-- Anonymous
+
+---
+
+# __Custom Types__
+
+---
+
+# Imagine we have two kinds of users, students and teachers
+
+---
+
+# We could have a field called `kind` that describes that
+
+---
+
+```js
+function userTitle(userKind) {
+  switch(userKind) {
+    case "student":
+      return "Student";
+
+    case "teacher":
+      return "Teacher";
+  }
+}
+```
+
+---
+
+# What happens if you make a typo and write `studemt`?
+
+---
+
+# What happens if you add another kind of User?
+
+---
+
+![inline](images/sleep-of-reason-undefined.jpg)
+
+---
+
+# In Elm you can make<br>your own datatypes
+
+---
+
+[.code-highlight: 1-3]
+[.code-highlight: 1-12]
+
+```elm
+type UserKind
+    = Student
+    | Teacher
+
+userTitle : UserKind -> String
+userTitle userKind =
+    case userKind of
+      Student ->
+        "Student"
+
+      Teacher ->
+        "Teacher"
+```
+
+---
+
+# No more typos, like __ever__
+
+---
+
+# __DEMO TIME__
+## [Hello World](https://ellie-app.com/5tNDCRphqnYa1)
+
+---
+
+# __DEMO TIME__
+## [Mondrian](https://ellie-app.com/5tNBy2c2mTza1)
+
+---
+
+# __DEMO TIME__
+## [Escher](https://github.com/einarwh/escher-workshop)
 
 ---
 
@@ -341,9 +511,10 @@ Hint: Want to convert an Int into a String? Use the String.fromInt function!
 
 # Elm in production
 
-- **100 million** requests per day
-- **250'000** LOC Elm code
-- **100'000** LOC Elm tests
+- __4 years__ in production
+- __100 million__ requests per day
+- __250'000__ LOC Elm code
+- __100'000__ LOC Elm tests
 
 ---
 
@@ -351,23 +522,34 @@ Hint: Want to convert an Int into a String? Use the String.fromInt function!
 
 ---
 
-There is no null
+# __ANOTHER DEMO__
 
-Amazing compiler
+---
 
-Amazing errors
+![inline](images/confident-1.png)
 
-Big changes very confident
+---
 
+![inline](images/confident-2.png)
 
-How to use Elm at work
+---
+
+![inline](images/confident-3.png)
+
+---
+
+![inline](images/confident-4.png)
+
+---
+
+# [How to use Elm at work](https://elm-lang.org/blog/how-to-use-elm-at-work)
 
 ---
 
 # 🙏 THANK YOU 🙏
 
-🐥 **@arkh4m**
+🐥 __@arkh4m__
 
 🌍 Want to write Elm remotely?
 
-🤖 **noredink.com/jobs**
+🤖 __noredink.com/jobs__
