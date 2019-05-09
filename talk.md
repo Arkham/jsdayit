@@ -518,6 +518,12 @@ userTitle userKind =
 
 ---
 
+# And... is it safe?
+
+![](images/kip.jpg)
+
+---
+
 ![](images/exceptions.png)
 
 ---
@@ -549,6 +555,8 @@ userTitle userKind =
 # 🙏 THANK YOU 🙏
 
 🐥 __@arkh4m__
+
+🔗 __github.com/Arkham/jsdayit
 
 🌍 Want to write Elm remotely?
 
